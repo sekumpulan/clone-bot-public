@@ -1,3 +1,5 @@
+import json
+
 from signal import signal, SIGINT
 from os import path as ospath, remove as osremove, execl as osexecl
 from subprocess import run as srun, check_output
@@ -57,7 +59,16 @@ from .functions import (
     leech_settings,
 )
 
-
+def kirim(update,context):
+    sendquote = requests.get("http://quotes.stormconsultancy.co.uk/random.json").json()
+    sendcuplik = requests.get("https://api.quotable.io/random").json()
+    sendtekskutipan = f"<i>{sendquote['quote']}</i> ~ <b>{sendquote['author']}</b>"
+    sendtekscuplik = f"<i>{sendcuplik['content']}</i> ~ <b>{sendcuplik['author']}</b>"
+    bot.sendMessage(chat_id=-1001517223317, text=sendtekscuplik, parse_mode=ParseMode.HTML)
+    bot.sendMessage(chat_id=-1001598769983, text=sendtekscuplik, parse_mode=ParseMode.HTML)
+    bot.sendMessage(chat_id=-1001517223317, text=sendtekskutipan, parse_mode=ParseMode.HTML)
+    bot.sendMessage(chat_id=-1001598769983, text=sendtekskutipan, parse_mode=ParseMode.HTML)
+	
 def stats(update, context):
     if ospath.exists(".git"):
         last_commit = check_output(
@@ -326,6 +337,8 @@ def main():
         filters=CustomFilters.owner_filter | CustomFilters.sudo_user,
         run_async=True,
     )
+    kirim_handler = CommandHandler("kirim", kirim, run_async=True)
+    dispatcher.add_handler(kirim_handler)
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(ping_handler)
     dispatcher.add_handler(restart_handler)
