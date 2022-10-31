@@ -98,30 +98,28 @@ def stats(update, context):
     mem_u = get_readable_file_size(memory.used)
     stats = (
         f"<b>Commit Date:</b> {last_commit}\n\n"
-        f"<b>Bot Uptime:</b> {currentTime}\n"
-        f"<b>OS Uptime:</b> {osUptime}\n\n"
-        f"<b>Total Disk Space:</b> {total}\n"
-        f"<b>Used:</b> {used} | <b>Free:</b> {free}\n\n"
-        f"<b>Upload:</b> {sent}\n"
-        f"<b>Download:</b> {recv}\n\n"
+        f"<b>Bot aktif:</b> {currentTime}\n"
+        f"<b>OS Aktif:</b> {osUptime}\n\n"
+        f"<b>Total Penyimpanan:</b> {total}\n"
+        f"<b>Digunakan:</b> {used} | <b>Bebas:</b> {free}\n\n"
+        f"<b>Data Terunggah:</b> {sent}\n"
+        f"<b>Data Terunduh:</b> {recv}\n\n"
         f"<b>CPU:</b> {cpuUsage}%\n"
         f"<b>RAM:</b> {mem_p}%\n"
-        f"<b>DISK:</b> {disk}%\n\n"
-        f"<b>Physical Cores:</b> {p_core}\n"
-        f"<b>Total Cores:</b> {t_core}\n\n"
+        f"<b>Penyimpanan:</b> {disk}%\n\n"
+        f"<b>Inti Fisik:</b> {p_core}\n"
+        f"<b>Total Inti:</b> {t_core}\n\n"
         f"<b>SWAP:</b> {swap_t} | <b>Used:</b> {swap_p}%\n"
-        f"<b>Memory Total:</b> {mem_t}\n"
-        f"<b>Memory Free:</b> {mem_a}\n"
-        f"<b>Memory Used:</b> {mem_u}\n"
+        f"<b>Total RAM:</b> {mem_t}\n"
+        f"<b>RAM Bebas:</b> {mem_a}\n"
+        f"<b>RAM Digunakan:</b> {mem_u}\n"
     )
     sendMessage(stats, context.bot, update.message)
 
 
 def start(update, context):
     buttons = ButtonMaker()
-    buttons.buildbutton(
-        "Bot serupa", "https://mesinpencaribot.t.me"
-    )
+    buttons.buildbutton("Bot Update", "https://kuyshare.t.me")
     buttons.buildbutton("Report Group", "https://t.me/mesinpencariid")
     reply_markup = InlineKeyboardMarkup(buttons.build_menu(2))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
